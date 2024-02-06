@@ -3345,7 +3345,7 @@ def download_course(request, course_id):
                     "css": ["bootstrap.min.css",
                             "video-js.css", "offline.css",
                             "yakshcustom.css"],
-                    "images": ["yaksh_banner.png"]}
+                    "images": ["frenzo.png"]}
     zip_file = course.create_zip(current_dir, static_files)
     zip_file.seek(0)
     response = HttpResponse(content_type='application/zip')
