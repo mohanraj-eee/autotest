@@ -531,6 +531,14 @@ class LessonForm(forms.ModelForm):
         required=False
         )
 
+    google_slide_path = forms.CharField(
+        widget=forms.TextInput(
+            {'class': form_input_class,
+             'placeholder': 'Google Slide URL'}
+            ),
+        required=False
+        )
+
     def __init__(self, *args, **kwargs):
         super(LessonForm, self).__init__(*args, **kwargs)
         des_msg = "Enter Lesson Description as Markdown text"
@@ -552,6 +560,9 @@ class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
         exclude = ['creator', 'html_data']
+        widgets = {
+            'lesson_type': forms.Select(attrs={'class': 'custom-select'})
+        }
 
     def clean_video_file(self):
         file = self.cleaned_data.get("video_file")
@@ -591,6 +602,14 @@ class LessonForm(forms.ModelForm):
                 )
         return path
 
+    def clean_google_slide_path(self):
+        slide_url = self.cleaned_data.get("google_slide_path")
+        print("CLean google slide")
+        return slide_url
+    
+    def clean_lesson_type(self):
+        lesson_type = self.cleaned_data.get("lesson_type")
+        return lesson_type
 
 class LessonFileForm(forms.Form):
     Lesson_files = forms.FileField(

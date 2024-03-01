@@ -102,8 +102,20 @@ $(document).ready(function() {
         }
         $(this).next('.custom-file-label').html(files.join(', '));
     });
-});
 
+    $('#id_lesson_type').on('change', function() {
+        var selectedOption = $(this).val();
+        if (selectedOption === "video") {
+            $("#video").show();
+            $("#google").hide();
+        } else if (selectedOption === "google") {
+            $("#video").hide();
+            $("#google").show();
+        }
+    });
+
+    $('#id_lesson_type').change();
+});
 
 function add_topic() {
     if (!$("#id_timer").val()) {
@@ -177,7 +189,6 @@ function show_message(message, msg_type) {
         }
     }
 }
-
 
 function show_toc(toc) {
     $("#lesson-content").empty();

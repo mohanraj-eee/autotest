@@ -330,6 +330,20 @@ class Lesson(models.Model):
         max_length=255, default=None, null=True, blank=True,
         help_text="Youtube id, vimeo id, others"
         )
+        
+    lesson_types = (
+            ("google", "Google Slide"), ("video", "Video")
+        )
+    
+    # Lesson Type
+    lesson_type = models.CharField(max_length=10, null=True, blank=False,
+                                   choices= lesson_types)
+
+    # Google Slide Embed Link
+    google_slide_path = models.CharField(
+        max_length=255, default=None, null=True, blank=True,
+        help_text="Google Slide id"
+        )
 
     def __str__(self):
         return "{0}".format(self.name)
@@ -3385,3 +3399,13 @@ class QRcodeHandler(models.Model):
 
     def can_use(self):
         return self.answerpaper.is_attempt_inprogress()
+
+
+class GitHubConfig(models.Model):
+    name = models.CharField(max_length=255)
+    url = models.URLField()
+    username = models.CharField(max_length=100)
+    key = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name

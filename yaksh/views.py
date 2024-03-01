@@ -2692,6 +2692,7 @@ def edit_lesson(request, course_id=None, module_id=None, lesson_id=None):
         if "Save" in request.POST:
             lesson_form = LessonForm(request.POST, request.FILES,
                                      instance=lesson)
+            print(lesson_form)
             lesson_file_form = LessonFileForm(request.POST, request.FILES)
             lessonfiles = request.FILES.getlist('Lesson_files')
             clear = request.POST.get("video_file-clear")
@@ -2707,6 +2708,7 @@ def edit_lesson(request, course_id=None, module_id=None, lesson_id=None):
                     lesson_form.instance.creator = user
                 else:
                     order = module.get_unit_order("lesson", lesson)
+                print("Lesson Form: " + str(lesson_form))
                 lesson = lesson_form.save()
                 lesson.html_data = get_html_text(lesson.description)
                 lesson.save()

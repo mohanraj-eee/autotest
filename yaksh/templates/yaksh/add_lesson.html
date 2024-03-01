@@ -85,24 +85,37 @@
                     <br>
                     Active:&nbsp;{{lesson_form.active}}
                     <br><br>
-                    Video Path:
-                    <a data-toggle="tooltip" id="video_msg">
-                        <i class="fa fa-question-circle"></i>
-                    </a>
-                    {{lesson_form.video_option}}
-                    <br><br>
-                    {{lesson_form.video_url}}
-                    {{lesson_form.video_path}}
-                    <br>
-                    Video File:
-                    <div class="table-responsive">
-                        <span class="badge badge-info">
-                            {{lesson_form.video_file.help_text}}
-                        </span>
-                    </div>
-                    <div class="col-md-4">
-                        {{lesson_form.video_file}}
-                    </div>
+					Lesson Type:
+					{{lesson_form.lesson_type}}
+					<br>
+					<br>
+					<div id="google" style="display: none">
+						Google Slide:
+						<a data-toggle="tooltip" id="video_msg">
+							<i class="fa fa-question-circle"></i>
+						</a>
+						{{lesson_form.google_slide_path}}
+					</div>
+					<div id="video" style="display: none">
+						Video Path:
+						<a data-toggle="tooltip" id="video_msg">
+							<i class="fa fa-question-circle"></i>
+						</a>
+						{{lesson_form.video_option}}
+						<br><br>
+						{{lesson_form.video_url}}
+						{{lesson_form.video_path}}
+						<br>
+						Video File:
+						<div class="table-responsive">
+							<span class="badge badge-info">
+								{{lesson_form.video_file.help_text}}
+							</span>
+						</div>
+						<div class="col-md-4">
+							{{lesson_form.video_file}}
+						</div>
+					</div>
                     <br>
                     Lesson Files:
                     <div class="input-group mb-3">
@@ -170,7 +183,7 @@
                     Create lesson table of contents
                 </div>
                 <div class="card-body">
-                    {% if lesson_form.instance and lesson_form.instance.video_path %}
+                    {% if lesson_form.instance and lesson_form.instance.video_path and lesson_form.instance.lesson_type == "video" %}
                         {% with lesson_form.instance.video_path|video_name as video %}
                         {% if video.1 == "others" %}
                         <video id="player" playsinline controls>
@@ -218,6 +231,9 @@
                                 </div>
                             </div>
                         {% endwith %}
+					{% elif lesson_form.instance and lesson_form.instance.lesson_type == "google" %}
+                       <!-- Add iframe for Google Slide -->
+                       <iframe src="{{ lesson_form.instance.google_slide_path }}" width="100%" height="400" frameborder="0" allowfullscreen="true"></iframe>
                     {% else %}
                         <div class="table-responsive">
                             <div class="badge badge-info">
